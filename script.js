@@ -22,7 +22,7 @@ document.getElementById("process-btn").addEventListener("click", () => {
                 newFileName = baseName + fileExtension;
                 break;
             case "brackets":
-                const match = baseName.match(/([^)]+)/);
+                const match = baseName.match(/(.*?)$/);
                 if (match) {
                     newFileName = match[1] + fileExtension;
                 } else {
@@ -51,7 +51,7 @@ document.getElementById("process-btn").addEventListener("click", () => {
 
         // Display file name and action buttons
         fileItem.innerHTML = `
-            <span>${fileName}</span>
+            <span>Nama File Asli: ${fileName}</span>
             ${
                 mode === "normal"
                     ? `<input type="text" placeholder="Masukkan nama baru..." value="${newFileName}" />`
