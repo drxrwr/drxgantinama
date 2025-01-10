@@ -1,28 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>File Renamer</title>
-  <link rel="stylesheet" href="styles.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Rename Tool</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <div class="container">
-    <h1>File Renamer</h1>
-    <div class="upload-section">
-      <input type="file" id="fileInput" multiple>
-      <select id="renameMode">
-        <option value="normal">Normal</option>
-        <option value="brackets">Didalam Kurung</option>
-        <option value="last1">1 Karakter Terakhir</option>
-        <option value="last2">2 Karakter Terakhir</option>
-        <option value="last3">3 Karakter Terakhir</option>
-        <option value="last4">4 Karakter Terakhir</option>
-      </select>
-      <button id="processButton">Ganti Nama</button>
+    <div class="container">
+        <h1>File Rename Tool</h1>
+        <div class="upload-section">
+            <label for="file-upload" class="file-label">Choose Files</label>
+            <input type="file" id="file-upload" multiple>
+            <select id="mode-select">
+                <option value="normal">Normal</option>
+                <option value="brackets">Didalam Kurung</option>
+                <option value="1-char">1 Karakter Terakhir</option>
+                <option value="2-char">2 Karakter Terakhir</option>
+                <option value="3-char">3 Karakter Terakhir</option>
+                <option value="4-char">4 Karakter Terakhir</option>
+            </select>
+            <button id="process-btn">Ganti Nama</button>
+        </div>
+        <div id="file-list"></div>
     </div>
-    <div id="fileList"></div>
-  </div>
-  <script src="script.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
