@@ -1,85 +1,87 @@
-document.getElementById('processButton').addEventListener('click', () => {
-  const files = document.getElementById('fileInput').files;
-  const renameMode = document.getElementById('renameMode').value;
-  const fileList = document.getElementById('fileList');
-  fileList.innerHTML = '';
+document.getElementById("process-btn").addEventListener("click", () => {
+    const fileInput = document.getElementById("file-upload");
+    const mode = document.getElementById("mode-select").value;
+    const fileList = document.getElementById("file-list");
 
-  Array.from(files).forEach((file) => {
-    const fileName = file.name;
-    const fileExtension = fileName.substring(fileName.lastIndexOf('.'));
-    const baseName = fileName.substring(0, fileName.lastIndexOf('.'));
+    fileList.innerHTML = ""; // Clear previous results
 
-    const fileItem = document.createElement('div');
-    fileItem.className = 'file-item';
-
-    const fileNameElement = document.createElement('div');
-    fileNameElement.textContent = `Nama File Asli: ${fileName}`;
-    fileItem.appendChild(fileNameElement);
-
-    let newFileName = '';
-    let error = '';
-
-    if (renameMode === 'normal') {
-      const input = document.createElement('input');
-      input.type = 'text';
-      input.placeholder = 'Masukkan nama baru (opsional)';
-      fileItem.appendChild(input);
-
-      newFileName = fileName; // Default to original name if not changed
-      const button = createDownloadButton(newFileName, file);
-      input.addEventListener('input', () => {
-        button.dataset.filename = input.value ? input.value + fileExtension : fileName;
-      });
-      fileItem.appendChild(button);
-    } else if (renameMode === 'brackets') {
-      const match = baseName.match(/([^)]+)$/);
-      if (match) {
-        newFileName = match[1] + fileExtension;
-      } else {
-        error = 'Tidak ada tanda kurung pada nama file.';
-      }
-      fileItem.appendChild(createDownloadButton(newFileName, file, error));
-    } else if (renameMode.startsWith('last')) {
-      const charCount = parseInt(renameMode.replace('last', ''), 10);
-      if (baseName.length >= charCount) {
-        newFileName = baseName.slice(-charCount) + fileExtension;
-      } else {
-        error = 'Jumlah karakter melebihi panjang nama file.';
-      }
-      fileItem.appendChild(createDownloadButton(newFileName, file, error));
+    if (!fileInput.files.length) {
+        alert("Please upload at least one file!");
+        return;
     }
 
-    if (error) {
-      const errorElement = document.createElement('div');
-      errorElement.className = 'error';
-      errorElement.textContent = error;
-      fileItem.appendChild(errorElement);
-    }
+    Array.from(fileInput.files).forEach((file) => {
+        const fileName = file.name;
+        const fileExtension = fileName.slice(fileName.lastIndexOf("."));
+        const baseName = fileName.slice(0, fileName.lastIndexOf("."));
+        let newFileName = "";
+        let errorMessage = "";
 
-    fileList.appendChild(fileItem);
-  });
+        switch (mode) {
+            case "normal":
+                newFileName = baseName + fileExtension;
+                break;
+            case "brackets":
+                const match = baseName.match(/([^)]+)/);
+                if (match) {
+                    newFileName = match[1] + fileExtension;
+                } else {
+                    errorMessage = "Tidak ada tanda kurung dalam nama file.";
+                }
+                break;
+            case "1-char":
+            case "2-char":
+            case "3-char":
+            case "4-char":
+                const numChars = parseInt(mode.split("-")[0]);
+                if (baseName.length >= numChars) {
+                    newFileName =
+                        baseName.slice(-numChars) + fileExtension;
+                } else {
+                    errorMessage = `Jumlah karakter melebihi panjang nama file.`;
+                }
+                break;
+            default:
+                break;
+        }
+
+        // Create file item
+        const fileItem = document.createElement("div");
+        fileItem.classList.add("file-item");
+
+        // Display file name and action buttons
+        fileItem.innerHTML = `
+            <span>${fileName}</span>
+            ${
+                mode === "normal"
+                    ? `<input type="text" placeholder="Masukkan nama baru..." value="${newFileName}" />`
+                    : ""
+            }
+            <button class="download-btn ${
+                errorMessage ? "red" : "green"
+            }">${errorMessage ? "Error" : newFileName}</button>
+            ${
+                errorMessage
+                    ? `<span class="error-message">${errorMessage}</span>`
+                    : ""
+            }
+        `;
+
+        // Handle download
+        if (!errorMessage) {
+            const downloadButton = fileItem.querySelector(".download-btn");
+            downloadButton.addEventListener("click", () => {
+                const blob = new Blob([file], { type: file.type });
+                const link = document.createElement("a");
+                link.href = URL.createObjectURL(blob);
+                link.download =
+                    mode === "normal"
+                        ? fileItem.querySelector("input").value || fileName
+                        : newFileName;
+                link.click();
+            });
+        }
+
+        fileList.appendChild(fileItem);
+    });
 });
-
-function createDownloadButton(newFileName, file, error = '') {
-  const button = document.createElement('button');
-  button.textContent = error ? 'Error' : `Download (${newFileName})`;
-  button.className = `download-button ${error ? 'red' : 'green'}`;
-
-  if (!error) {
-    button.dataset.filename = newFileName;
-    button.addEventListener('click', () => downloadFile(file, newFileName));
-  }
-
-  return button;
-}
-
-function downloadFile(file, newFileName) {
-  const url = URL.createObjectURL(file);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = newFileName;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(url);
-}
