@@ -4,32 +4,25 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>File Renamer</title>
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <div class="container">
     <h1>File Renamer</h1>
     <div class="upload-section">
-      <label for="fileInput">Upload Files:</label>
       <input type="file" id="fileInput" multiple>
-    </div>
-
-    <div class="options-section">
-      <h3>Rename Options</h3>
-      <select id="renameOption">
+      <select id="renameMode">
         <option value="normal">Normal</option>
-        <option value="brackets">Inside Brackets</option>
-        <option value="1">1 Character from End</option>
-        <option value="2">2 Characters from End</option>
-        <option value="3">3 Characters from End</option>
-        <option value="4">4 Characters from End</option>
+        <option value="brackets">Didalam Kurung</option>
+        <option value="last1">1 Karakter Terakhir</option>
+        <option value="last2">2 Karakter Terakhir</option>
+        <option value="last3">3 Karakter Terakhir</option>
+        <option value="last4">4 Karakter Terakhir</option>
       </select>
-      <button id="renameBtn">Rename Files</button>
+      <button id="processButton">Ganti Nama</button>
     </div>
-
-    <div id="output" class="output-section"></div>
+    <div id="fileList"></div>
   </div>
-
   <script src="script.js"></script>
 </body>
 </html>
