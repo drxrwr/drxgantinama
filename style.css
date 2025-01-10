@@ -1,68 +1,39 @@
 body {
     font-family: Arial, sans-serif;
-    background-color: white;
+    background-color: #f7f7f7;
+    color: #333;
     margin: 0;
     padding: 0;
 }
 
 .container {
     max-width: 800px;
-    margin: 30px auto;
+    margin: 20px auto;
     padding: 20px;
-    border: 1px solid #ccc;
+    background-color: #fff;
+    border: 1px solid #ddd;
     border-radius: 10px;
-    background-color: #f9f9f9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
     text-align: center;
-    color: black;
+    margin-bottom: 20px;
 }
 
 .upload-section {
     display: flex;
-    flex-wrap: wrap;
     gap: 10px;
     justify-content: center;
     margin-bottom: 20px;
 }
 
-.file-label {
-    background-color: #4CAF50;
-    color: white;
-    padding: 10px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-#file-upload {
-    display: none;
-}
-
-#mode-select, #process-btn {
+#file-list .file-item {
     padding: 10px;
-    border-radius: 5px;
-    border: 1px solid #ccc;
-    cursor: pointer;
-}
-
-#file-list {
-    margin-top: 20px;
-}
-
-.file-item {
+    border-bottom: 1px solid #ddd;
     display: flex;
-    flex-direction: column;
-    justify-content: start;
-    align-items: flex-start;
-    padding: 10px;
-    border-bottom: 1px solid #ccc;
-}
-
-.file-item input[type="text"] {
-    width: 90%;
-    margin-bottom: 10px;
-    padding: 5px;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .download-btn {
@@ -70,20 +41,19 @@ h1 {
     border: none;
     border-radius: 5px;
     cursor: pointer;
+    color: white;
 }
 
 .download-btn.green {
-    background-color: #4CAF50;
-    color: white;
+    background-color: #28a745;
 }
 
 .download-btn.red {
-    background-color: #f44336;
-    color: white;
+    background-color: #dc3545;
 }
 
 .error-message {
     color: red;
     font-size: 0.9em;
-    margin-top: 5px;
+    margin-left: 10px;
 }
