@@ -22,7 +22,7 @@ document.getElementById("process-btn").addEventListener("click", () => {
                 newFileName = baseName + fileExtension;
                 break;
             case "brackets":
-                const match = baseName.match(/(.*?)$/);
+                const match = baseName.match(/(.*?)/);
                 if (match) {
                     newFileName = match[1] + fileExtension;
                 } else {
@@ -35,8 +35,7 @@ document.getElementById("process-btn").addEventListener("click", () => {
             case "4-char":
                 const numChars = parseInt(mode.split("-")[0]);
                 if (baseName.length >= numChars) {
-                    newFileName =
-                        baseName.slice(-numChars) + fileExtension;
+                    newFileName = baseName.slice(-numChars) + fileExtension;
                 } else {
                     errorMessage = `Jumlah karakter melebihi panjang nama file.`;
                 }
@@ -45,11 +44,9 @@ document.getElementById("process-btn").addEventListener("click", () => {
                 break;
         }
 
-        // Create file item
         const fileItem = document.createElement("div");
         fileItem.classList.add("file-item");
 
-        // Display file name and action buttons
         fileItem.innerHTML = `
             <span>Nama File Asli: ${fileName}</span>
             ${
@@ -59,7 +56,7 @@ document.getElementById("process-btn").addEventListener("click", () => {
             }
             <button class="download-btn ${
                 errorMessage ? "red" : "green"
-            }">${errorMessage ? "Error" : newFileName}</button>
+            }">${errorMessage ? "Error" : "Download"}</button>
             ${
                 errorMessage
                     ? `<span class="error-message">${errorMessage}</span>`
@@ -67,7 +64,6 @@ document.getElementById("process-btn").addEventListener("click", () => {
             }
         `;
 
-        // Handle download
         if (!errorMessage) {
             const downloadButton = fileItem.querySelector(".download-btn");
             downloadButton.addEventListener("click", () => {
