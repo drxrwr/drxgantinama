@@ -1,63 +1,88 @@
 body {
-  font-family: Arial, sans-serif;
-  background-color: white;
-  color: black;
-  margin: 0;
-  padding: 20px;
+    font-family: Arial, sans-serif;
+    background-color: white;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-  max-width: 800px;
-  margin: 0 auto;
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
 }
 
 h1 {
-  text-align: center;
-  color: black;
+    text-align: center;
+    color: black;
 }
 
 .upload-section {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    margin-bottom: 20px;
 }
 
-#fileList {
-  margin-top: 20px;
+.file-label {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#file-upload {
+    display: none;
+}
+
+#mode-select, #process-btn {
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+#file-list {
+    margin-top: 20px;
 }
 
 .file-item {
-  margin-bottom: 15px;
-  padding: 10px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
 }
 
-.file-item .error {
-  color: red;
-  margin-top: 5px;
+.file-item input[type="text"] {
+    flex: 1;
+    margin-right: 10px;
+    padding: 5px;
 }
 
-.download-button {
-  padding: 5px 10px;
-  border: none;
-  border-radius: 3px;
-  cursor: pointer;
-  color: white;
+.download-btn {
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
-.download-button.green {
-  background-color: green;
+.download-btn.green {
+    background-color: #4CAF50;
+    color: white;
 }
 
-.download-button.red {
-  background-color: red;
-  cursor: not-allowed;
+.download-btn.red {
+    background-color: #f44336;
+    color: white;
 }
 
-input[type="text"] {
-  padding: 5px;
-  width: 60%;
-  margin-right: 10px;
+.error-message {
+    color: red;
+    font-size: 0.9em;
+    margin-top: 5px;
 }
